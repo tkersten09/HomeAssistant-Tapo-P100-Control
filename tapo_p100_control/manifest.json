@@ -5,6 +5,6 @@
   "issue_tracker": "https://github.com/fishbigger/HomeAssistant-Tapo-P100-Control/issues",
   "dependencies": [],
   "codeowners": ["@fishbigger"],
-  "requirements": ["PyP100==0.0.19"],
+  "requirements": ["git+https://github.com/tkersten09/TapoP100.git@eade1c127a3e1c991aa215124be95ad53d8b6edd#PyP100==0.0.20"],
   "version": "1.0.0"
 }
