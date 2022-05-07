@@ -49,7 +49,10 @@ class P100Plug(SwitchEntity):
     def __init__(self, p100):
         self._p100 = p100
         self._is_on = False
+        self._unique_id = ''
         self._name = "Tapo P100 Plug"
+        self._data = {}
+        self._mac = ''
         self.update()
 
     @property
@@ -60,7 +63,7 @@ class P100Plug(SwitchEntity):
     @property
     def unique_id(self):
         """Unique id."""
-        return self._unique_id
+        return self._unique_id + self._mac
 
     @property
     def is_on(self):
@@ -84,10 +87,10 @@ class P100Plug(SwitchEntity):
         self._p100.login()
 
         data = self._p100.getDeviceInfo()
+        self._data = json.loads(self._p100.getDeviceInfo())
 
-        encodedName = data["result"]["nickname"]
-        name = b64decode(encodedName)
-        self._name = name.decode("utf-8")
-
-        self._is_on = data["result"]["device_on"]
+        self._is_on = self._data["result"]["device_on"]
+        self._mac = self._data["result"]["mac"]
         self._unique_id = data["result"]["device_id"]
+
+        self._name = self._data["result"]["nickname"]
